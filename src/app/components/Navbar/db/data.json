@@ -1,0 +1,20 @@
+{
+  "navList": [
+    {
+      "name": "home",
+      "href": "/"
+    },
+    {
+      "name": "courses",
+      "href": "/courses"
+    },
+    {
+      "name": "instructors",
+      "href": "/instructors/"
+    },
+    {
+      "name": "blog",
+      "href": "/blog"
+    }
+  ]
+}
