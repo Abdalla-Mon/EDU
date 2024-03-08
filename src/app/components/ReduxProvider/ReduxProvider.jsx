@@ -1,12 +1,17 @@
+"use client";
+import { makeStore } from "@/lib/redux/store/store";
+import { Provider } from "react-redux";
+import { createTheme, ThemeProvider } from "@mui/material";
 
-"use client"
-import {makeStore} from "@/lib/redux/store/store";
-import {Provider} from "react-redux";
-
+const theme = createTheme({
+  typography: {
+    fontFamily: "inherit",
+  },
+});
 export default function ReduxProvider({ children }) {
-    return(
-          <Provider store={makeStore}>
-                {children}
-            </Provider>
-          )
+  return (
+    <ThemeProvider theme={theme}>
+      <Provider store={makeStore}>{children}</Provider>
+    </ThemeProvider>
+  );
 }
