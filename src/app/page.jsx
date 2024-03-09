@@ -3,7 +3,7 @@ import HeroSection from "@/app/components/HomePage/HeroSection";
 import PopularCourses from "@/app/components/HomePage/PopularCourses";
 import HomeAbout from "@/app/components/HomePage/AboutUs";
 import SectionContainer from "@/app/components/HomePage/SectionContainer";
-import { createContext, useState } from "react";
+import React, { createContext, useState } from "react";
 
 export const AboutSectionContext = createContext(null);
 

@@ -1,0 +1,120 @@
+{
+  "about": [
+    {
+      "id": 1,
+      "title": "About",
+      "content": "This is a simple app to demonstrate the use of React Native."
+    },
+    {
+      "id": 2,
+      "title": "about 2",
+      "content": "This is a simple app to demonstrate the use of React not native."
+    }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "title": "Learn Python",
+      "image": "/home/course.jpg",
+      "rating": 4,
+      "price": "$50",
+      "category": "Programming"
+    },
+    {
+      "id": 2,
+      "title": "Learn React",
+      "image": "/home/course.jpg",
+      "rating": 5,
+      "price": "$100",
+      "category": "Business"
+    },
+    {
+      "id": 3,
+      "title": "Learn JavaScript",
+      "image": "/home/course.jpg",
+      "price": "$80",
+      "rating": 4,
+      "category": "Nursing"
+    },
+    {
+      "id": 4,
+      "title": "Learn Java",
+      "image": "/home/course.jpg",
+      "price": "$90",
+      "rating": 3,
+      "category": "Engineering"
+    },
+    {
+      "id": 5,
+      "title": "Learn C++",
+      "image": "/home/course.jpg",
+      "price": "$70",
+      "rating": 4,
+      "category": "Programming"
+    },
+    {
+      "id": 6,
+      "title": "Learn C#",
+      "image": "/home/course.jpg",
+      "price": "$60",
+      "rating": 4,
+      "category": "Programming"
+    },
+    {
+      "id": 7,
+      "title": "Learn Ruby",
+      "image": "/home/course.jpg",
+      "price": "$50",
+      "rating": 4,
+      "category": "Programming"
+    },
+    {
+      "id": 8,
+      "title": "Learn Swift",
+      "image": "/home/course.jpg",
+      "price": "$50",
+      "rating": 4,
+      "category": "Programming"
+    },
+    {
+      "id": 9,
+      "title": "Learn Kotlin",
+      "image": "/home/course.jpg",
+      "price": "$50",
+      "rating": 4,
+      "category": "Programming"
+    },
+    {
+      "id": 10,
+      "title": "Learn Dart",
+      "image": "/home/course.jpg",
+      "price": "$50",
+      "rating": 4,
+      "category": "Programming"
+    },
+    {
+      "id": 11,
+      "title": "Learn Go",
+      "image": "/home/course.jpg",
+      "price": "$50",
+      "rating": 4,
+      "category": "Programming"
+    },
+    {
+      "id": 12,
+      "title": "Learn Rust",
+      "image": "/home/course.jpg",
+      "price": "$50",
+      "rating": 4,
+      "category": "Programming"
+    },
+    {
+      "id": 13,
+      "title": "Learn TypeScript",
+      "image": "/home/course.jpg",
+      "price": "$50",
+      "rating": 4,
+      "category": "Programming"
+    }
+  ]
+}

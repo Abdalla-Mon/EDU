@@ -4,37 +4,12 @@ import SectionHeading from "@/app/components/SectionHeading/SectionHeading";
 import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import jsonData from "@/app/data.json";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const data = [
-  {
-    id: 1,
-    title: "Learn Python",
-    image: "/home/course.jpg",
-    rating: 4,
-    price: "$50",
-    category: "Programming",
-  },
-  {
-    id: 2,
-    title: "Learn React",
-    image: "/home/course.jpg",
-    rating: 5,
-    price: "$100",
-    category: "Business",
-  },
-  {
-    id: 3,
-    title: "Learn JavaScript",
-    image: "/home/course.jpg",
-    price: "$80",
-    rating: 4,
-    category: "Nursing",
-  },
-];
-
 export default function PopularCourses() {
+  const data = jsonData.courses;
   const ref = useRef(null);
   // useEffect(() => {
   //   gsap.from(".home_card", {
