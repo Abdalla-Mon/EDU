@@ -6,7 +6,9 @@ import { motion } from "framer-motion";
 export default function HeroSection() {
   return (
     <div
-      className={"h-screen w-full bg-no-repeat bg-cover bg-center pt-[80px]"}
+      className={
+        "h-screen w-full bg-no-repeat bg-cover bg-center pt-[80px] hero_section"
+      }
       style={{ backgroundImage: "url(/home/hero-background.png)" }}
     >
       <div className={"container mx-auto h-full"}>
