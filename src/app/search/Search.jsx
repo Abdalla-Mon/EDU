@@ -71,11 +71,13 @@ export default function Search() {
                         return (
                           <div
                             key={title.raw}
-                            className={"bg-red-950 text-white text-4xl"}
+                            className={"bg-red-950 text-white "}
                           >
-                            hi
-                            {title.raw}
-                            {description.raw}
+                            <div>Title: {title.raw}</div>
+                            <div className={"my-5"}>
+                              Description:
+                              {description.raw}
+                            </div>
                           </div>
                         );
                       }}
