@@ -27,15 +27,16 @@ const config = {
   searchQuery: {
     result_fields: {
       title: { raw: {} },
+      description: { raw: {} }, // added description field
     },
     search_fields: {
       title: {},
+      description: {}, // added description field
     },
     disjunctiveFacets: [""],
     facets: {},
   },
 };
-
 export default function Search() {
   return (
     <SearchProvider config={config}>
@@ -49,7 +50,12 @@ export default function Search() {
             <div className="App">
               <ErrorBoundary>
                 <Layout
-                  header={<SearchBox debounceLength={0} />}
+                  header={
+                    <SearchBox
+                      debounceLength={0}
+                      autocompleteSuggestions={true}
+                    />
+                  }
                   sideContent={<div></div>}
                   bodyContent={
                     <Results
@@ -57,6 +63,22 @@ export default function Search() {
                       urlField="nps_link"
                       thumbnailField="image_url"
                       shouldTrackClickThrough
+                      resultView={(props) => {
+                        // Customize the result view here
+                        if (!props.result) return null;
+                        const { title, nps_link, image_url, description } =
+                          props.result; // added description
+                        return (
+                          <div
+                            key={title.raw}
+                            className={"bg-red-950 text-white text-4xl"}
+                          >
+                            hi
+                            {title.raw}
+                            {description.raw}
+                          </div>
+                        );
+                      }}
                     />
                   }
                   bodyHeader={
