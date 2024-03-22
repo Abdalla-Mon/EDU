@@ -1,15 +1,9 @@
-"use client";
-import SectionHeading from "@/app/components/SectionHeading/SectionHeading";
 import { Typography } from "@mui/material";
 import { FaCheck } from "react-icons/fa";
 import i from "../../../../public/home/course2.jpg";
 import n from "../../../../public/home/about2.webp";
-
 import Image from "next/image";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import SectionHeading from "../SectionHeading/SectionHeading";
 
 export default function HomeAbout() {
   return (

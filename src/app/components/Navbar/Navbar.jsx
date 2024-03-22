@@ -86,7 +86,7 @@ export default function Navbar() {
             <IconButton
               size="medium"
               edge="end"
-              aria-label="Page for a course"
+              aria-label="Search for a course"
               aria-haspopup="true"
               color="inherit"
             >
