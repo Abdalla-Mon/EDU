@@ -37,3 +37,12 @@ next-env.d.ts
 
 # webstorm
 .xml
+
+# Ignore WebStorm project directory
+.idea
+
+# Ignore urls.js file
+urls.js
+
+# Ignore package-lock.json
+package-lock.json
