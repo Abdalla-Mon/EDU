@@ -1,0 +1,101 @@
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  directUrl         = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  firstName      String
+  lastName      String
+  email     String   @unique
+  password  String
+  role      Role
+  courses   Course[] @relation("UserCourses")
+  favorites Course[] @relation("FavoriteCourses")
+  teaching  Course[] @relation("CoursesTaught")
+  reviews   Review[]
+  progress  CourseProgress[]
+  photo     String?
+}
+
+model Course {
+  id              Int      @id @default(autoincrement())
+  title           String
+  description     String
+  learningOutcomes Json
+  category        Category @relation(fields: [categoryId], references: [id])
+  categoryId      Int
+  lessons         Lesson[]
+  students        User[]   @relation("UserCourses")
+  favorites       User[]   @relation("FavoriteCourses")
+  teacher         User     @relation(fields: [teacherId], references: [id], name: "CoursesTaught")
+  teacherId       Int
+  progress        CourseProgress[]
+  isPublished     Boolean
+  price           Float
+  rating          Float
+  reviews         Review[]
+  quizzes         QuizContent[]
+  photo     String?
+}
+
+model Lesson {
+  id           Int      @id @default(autoincrement())
+  title        String
+  content      Json
+  isFree       Boolean
+  course       Course   @relation(fields: [courseId], references: [id])
+  courseId     Int
+  textContents TextContent[]
+  duration     Int
+}
+model TextContent {
+  id        Int      @id @default(autoincrement())
+  text      String
+  lesson    Lesson   @relation(fields: [lessonId], references: [id])
+  lessonId  Int
+}
+
+model QuizContent {
+  id        Int      @id @default(autoincrement())
+  questions String
+  course    Course   @relation(fields: [courseId], references: [id])
+  courseId  Int
+}
+model Category {
+  id      Int      @id @default(autoincrement())
+  name    String   @unique
+  courses Course[]
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  rating    Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  course    Course   @relation(fields: [courseId], references: [id])
+  courseId  Int
+}
+
+model CourseProgress {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  course    Course   @relation(fields: [courseId], references: [id])
+  courseId  Int
+  progress  Float
+}
+
+
+
