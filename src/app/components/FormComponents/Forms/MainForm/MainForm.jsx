@@ -2,6 +2,7 @@
 import InputField from "../../Inputs/InputField";
 import { useForm } from "react-hook-form";
 import SubmitBtn from "../../../Buttons/SubmitBtn/SubmitBtn";
+import SelectField from "../../Inputs/SelectField";
 
 export default function MainForm({
   inputs,
@@ -10,6 +11,9 @@ export default function MainForm({
   btnText,
   formTitle,
   formStyle,
+  variant,
+  selectWidth,
+  inputWidth,
 }) {
   const { formState, register, handleSubmit } = useForm();
   const { errors } = formState;
@@ -26,13 +30,22 @@ export default function MainForm({
           return (
             <>
               {input.data.type === "select" ? (
-                ""
+                <SelectField
+                  key={input.data.id}
+                  select={input}
+                  width={selectWidth}
+                  register={register}
+                  errors={errors}
+                  variant={variant}
+                />
               ) : (
                 <InputField
                   key={input.data.id}
                   input={input}
                   register={register}
                   errors={errors}
+                  variant={variant}
+                  width={inputWidth}
                 />
               )}
             </>
