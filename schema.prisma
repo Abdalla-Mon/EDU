@@ -16,8 +16,8 @@ enum Role {
 
 model User {
   id        Int      @id @default(autoincrement())
-  firstName      String
-  lastName      String
+  firstName String
+  lastName  String
   email     String   @unique
   password  String
   role      Role
@@ -27,8 +27,8 @@ model User {
   reviews   Review[]
   progress  CourseProgress[]
   photo     String?
+  quizAttempts QuizAttempt[]
 }
-
 model Course {
   id              Int      @id @default(autoincrement())
   title           String
@@ -67,11 +67,29 @@ model TextContent {
   lessonId  Int
 }
 
+model Question {
+  id        Int      @id @default(autoincrement())
+  question  String
+  answers   Json
+  correctAnswer String
+  quiz      QuizContent @relation(fields: [quizId], references: [id])
+  quizId    Int
+}
+
 model QuizContent {
   id        Int      @id @default(autoincrement())
-  questions String
   course    Course   @relation(fields: [courseId], references: [id])
   courseId  Int
+  questions Question[]
+  attempts  QuizAttempt[]
+}
+model QuizAttempt {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  quiz      QuizContent @relation(fields: [quizId], references: [id])
+  quizId    Int
+  answers   Json
 }
 model Category {
   id      Int      @id @default(autoincrement())
