@@ -8,7 +8,8 @@ export async function POST(request, { params }) {
   const { token: confirmationToken } = params;
 
   const cookieStore = cookies();
-  if (!confirmationToken) return null;
+  if (!confirmationToken)
+    return Response.json({ message: "No confirmation token provided" });
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -46,6 +47,6 @@ export async function POST(request, { params }) {
       redirect: true,
     });
   } catch (error) {
-    return Response.json({});
+    return Response.json({ message: "An error occurred" });
   }
 }
