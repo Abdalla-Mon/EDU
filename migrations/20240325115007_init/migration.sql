@@ -10,6 +10,14 @@ CREATE TABLE "User" (
     "password" TEXT NOT NULL,
     "role" "Role" NOT NULL,
     "photo" TEXT,
+    "resetPasswordToken" TEXT,
+    "resetPasswordExpires" TIMESTAMP(3),
+    "confirmationToken" TEXT,
+    "confirmationExpires" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "deletedAt" TIMESTAMP(3),
+    "emailConfirmed" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -52,12 +60,36 @@ CREATE TABLE "TextContent" (
 );
 
 -- CreateTable
+CREATE TABLE "Question" (
+    "id" SERIAL NOT NULL,
+    "question" TEXT NOT NULL,
+    "answers" JSONB NOT NULL,
+    "correctAnswer" TEXT NOT NULL,
+    "order" INTEGER NOT NULL,
+    "quizId" INTEGER NOT NULL,
+
+    CONSTRAINT "Question_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "QuizContent" (
     "id" SERIAL NOT NULL,
-    "questions" TEXT NOT NULL,
     "courseId" INTEGER NOT NULL,
 
     CONSTRAINT "QuizContent_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "QuizAttempt" (
+    "id" SERIAL NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "quizId" INTEGER NOT NULL,
+    "answers" JSONB NOT NULL,
+    "score" INTEGER,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "QuizAttempt_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -104,6 +136,12 @@ CREATE TABLE "_FavoriteCourses" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "User_resetPasswordToken_key" ON "User"("resetPasswordToken");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_confirmationToken_key" ON "User"("confirmationToken");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Category_name_key" ON "Category"("name");
 
 -- CreateIndex
@@ -131,7 +169,16 @@ ALTER TABLE "Lesson" ADD CONSTRAINT "Lesson_courseId_fkey" FOREIGN KEY ("courseI
 ALTER TABLE "TextContent" ADD CONSTRAINT "TextContent_lessonId_fkey" FOREIGN KEY ("lessonId") REFERENCES "Lesson"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "Question" ADD CONSTRAINT "Question_quizId_fkey" FOREIGN KEY ("quizId") REFERENCES "QuizContent"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "QuizContent" ADD CONSTRAINT "QuizContent_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "Course"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "QuizAttempt" ADD CONSTRAINT "QuizAttempt_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "QuizAttempt" ADD CONSTRAINT "QuizAttempt_quizId_fkey" FOREIGN KEY ("quizId") REFERENCES "QuizContent"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Review" ADD CONSTRAINT "Review_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

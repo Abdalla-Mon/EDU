@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoggedIn: false,
   role: "",
+  data: {},
+  emailConfirmed: false,
 };
 
 const authSlice = createSlice({
@@ -10,8 +12,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setAuthState(state, action) {
-      state.isLoggedIn = action.payload.state;
-      state.userData = action.payload.data;
+      state.isLoggedIn = action.payload.isLoggedIn;
+      state.role = action.payload.role;
+      state.data = action.payload.data;
+      state.emailConfirmed = action.payload.emailConfirmed;
     },
   },
 });

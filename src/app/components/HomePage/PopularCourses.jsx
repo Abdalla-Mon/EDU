@@ -1,7 +1,7 @@
 "use client";
 
 import SectionHeading from "../SectionHeading/SectionHeading";
-import HorizontalCard from "../Cards/HorizontalCard";
+import HorizontalCard from "../../../UiComponents/Cards/HorizontalCard";
 
 export default function PopularCourses() {
   const data = [

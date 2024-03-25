@@ -19,9 +19,11 @@ import { selectAuth } from "@/lib/redux/slices/authSlice";
 import Drawer from "@/app/components/Navbar/Drawer";
 import NavList from "@/app/components/Navbar/NavList";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { handleRequestSubmit } from "@/helpers/functions/handleSubmit";
+import { DisplayLoadingAndErrors } from "@/helpers/components/DisplayLoading";
 
 export default function Navbar() {
-  const { isLoggedin } = useSelector(selectAuth);
+  const { isLoggedIn, role } = useSelector(selectAuth);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const menuId = "primary-menu";
 
@@ -37,7 +39,7 @@ export default function Navbar() {
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
-    if (!isLoggedin) {
+    if (!isLoggedIn) {
       router.push("/login"); // Redirect to the login page
     }
   };
@@ -116,43 +118,71 @@ export default function Navbar() {
           </div>
         </Toolbar>
       </AppBar>
-      {isLoggedin && (
+      {isLoggedIn && (
         <AccountMenu
           anchorEl={anchorEl}
           menuId={menuId}
           setAnchorEl={setAnchorEl}
+          role={role}
         />
       )}
     </motion.div>
   );
 }
 
-function AccountMenu({ anchorEl, menuId, setAnchorEl }) {
+function AccountMenu({ anchorEl, menuId, setAnchorEl, role }) {
   const isMenuOpen = Boolean(anchorEl);
-
+  const router = useRouter();
   const handleMenuClose = () => {
+    if (role) {
+      if (role === "TEACHER") {
+        router.push(`/instructor`);
+      } else {
+        router.push(`/${role.toLowerCase()}`);
+      }
+    }
     setAnchorEl(null);
   };
+  const [loading, setLoading] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
+
+  async function handleLogOut() {
+    await handleRequestSubmit(
+      {},
+      setLoading,
+      setSubmitMessage,
+      `auth/signout`,
+      false,
+      null
+    );
+    setAnchorEl(null);
+  }
 
   return (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      {/*<MenuItem onClick={handleLogOut}>Logout</MenuItem>*/}
-    </Menu>
+    <>
+      <DisplayLoadingAndErrors
+        loading={loading}
+        setSubmitMessage={setSubmitMessage}
+        submitMessage={submitMessage}
+      />
+      <Menu
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        id={menuId}
+        keepMounted
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        open={isMenuOpen}
+        onClose={handleMenuClose}
+      >
+        <MenuItem onClick={handleMenuClose}>Dashboard</MenuItem>
+        <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+      </Menu>
+    </>
   );
 }

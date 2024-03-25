@@ -10,7 +10,7 @@ generator client {
 
 enum Role {
   STUDENT
-  TEACHER
+  INSTRUCTOR
   ADMIN
 }
 
@@ -28,6 +28,14 @@ model User {
   progress  CourseProgress[]
   photo     String?
   quizAttempts QuizAttempt[]
+  resetPasswordToken  String?  @unique
+  resetPasswordExpires DateTime?
+  confirmationToken String?  @unique
+  confirmationExpires DateTime?
+    createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  emailConfirmed Boolean @default(false)
 }
 model Course {
   id              Int      @id @default(autoincrement())
@@ -72,6 +80,7 @@ model Question {
   question  String
   answers   Json
   correctAnswer String
+  order     Int
   quiz      QuizContent @relation(fields: [quizId], references: [id])
   quizId    Int
 }
@@ -90,6 +99,9 @@ model QuizAttempt {
   quiz      QuizContent @relation(fields: [quizId], references: [id])
   quizId    Int
   answers   Json
+  score     Int? // to store the quiz score
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 model Category {
   id      Int      @id @default(autoincrement())

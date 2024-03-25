@@ -1,8 +1,8 @@
 "use client";
 import InputField from "../../Inputs/InputField";
 import { useForm } from "react-hook-form";
-import SubmitBtn from "../../../Buttons/SubmitBtn/SubmitBtn";
 import SelectField from "../../Inputs/SelectField";
+import { Button, Typography } from "@mui/material";
 
 export default function MainForm({
   inputs,
@@ -10,10 +10,10 @@ export default function MainForm({
   differentButton,
   btnText,
   formTitle,
+  subTitle,
   formStyle,
   variant,
-  selectWidth,
-  inputWidth,
+  children,
 }) {
   const { formState, register, handleSubmit } = useForm();
   const { errors } = formState;
@@ -21,11 +21,24 @@ export default function MainForm({
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className
+      className="flex flex-col items-center justify-center w-full  p-5 sm:max-w-[400px]  lg:max-w-[500px] bg-gray-100 rounded shadow-md"
       style={formStyle}
     >
-      <h3>{formTitle}</h3>
-      <div>
+      <Typography
+        variant="h4"
+        className="mb-4 font-bold text-[--color_primary]"
+      >
+        {formTitle}
+      </Typography>
+      {subTitle && (
+        <Typography
+          variant="subtitle1"
+          className="mb-4 font-bold text-[--color_secondary]"
+        >
+          {subTitle}
+        </Typography>
+      )}
+      <div className={"w-full"}>
         {inputs.map((input) => {
           return (
             <>
@@ -33,7 +46,6 @@ export default function MainForm({
                 <SelectField
                   key={input.data.id}
                   select={input}
-                  width={selectWidth}
                   register={register}
                   errors={errors}
                   variant={variant}
@@ -45,14 +57,26 @@ export default function MainForm({
                   register={register}
                   errors={errors}
                   variant={variant}
-                  width={inputWidth}
                 />
               )}
             </>
           );
         })}
+        {children}
       </div>
-      {differentButton ? differentButton : <SubmitBtn text={btnText} />}
+      {differentButton ? (
+        differentButton
+      ) : (
+        <Button
+          type="form"
+          variant="contained"
+          size="large"
+          color="primary"
+          className={"mt-5 w-full  p-3 capitalize text-white font-bold"}
+        >
+          {btnText}
+        </Button>
+      )}
     </form>
   );
 }
