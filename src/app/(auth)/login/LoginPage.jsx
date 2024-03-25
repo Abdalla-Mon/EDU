@@ -38,7 +38,9 @@ export default function LoginPage() {
         formTitle={"Login to EDU"}
         onSubmit={handleLogin}
         subTitle={subTitle}
-      />
+      >
+        <Link href={pageUrl + "/reset"}>Forgot password?</Link>
+      </MainForm>
     </>
   );
 }
