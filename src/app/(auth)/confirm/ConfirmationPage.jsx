@@ -9,6 +9,7 @@ export default function ConfirmationPage({ token }) {
   const [submitMessage, setSubmitMessage] = useState("");
   const [isConfirmed, setIsConfirmed] = useState(false);
   const router = useRouter();
+
   useEffect(() => {
     async function handleConfirmation() {
       if (isConfirmed) return;
