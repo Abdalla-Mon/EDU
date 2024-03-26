@@ -46,6 +46,3 @@ urls.js
 
 # Ignore package-lock.json
 package-lock.json
-
-#Ignore urls.js file
-src/Urls/urls.js
