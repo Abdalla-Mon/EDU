@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 
-export async function POST(request, { params }) {
+export async function POST() {
   const cookieStore = cookies();
 
   try {
@@ -12,12 +12,14 @@ export async function POST(request, { params }) {
     });
 
     return Response.json({
+      status: 200,
       message: "Signed out successfully",
       auth: false,
     });
   } catch (error) {
     console.log(error);
     return Response.json({
+      status: 500,
       message: "Error signing out user " + error.message,
     });
   }

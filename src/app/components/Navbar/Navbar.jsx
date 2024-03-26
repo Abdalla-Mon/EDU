@@ -12,7 +12,6 @@ import Image from "next/image";
 import { FaSearch } from "react-icons/fa";
 import { RxAvatar } from "react-icons/rx";
 import Link from "next/link";
-// import { handleLogOut } from "@/lib/auth/handleUser/logout";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { selectAuth } from "@/lib/redux/slices/authSlice";
@@ -20,7 +19,8 @@ import Drawer from "@/app/components/Navbar/Drawer";
 import NavList from "@/app/components/Navbar/NavList";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { handleRequestSubmit } from "@/helpers/functions/handleSubmit";
-import { DisplayLoadingAndErrors } from "@/helpers/components/DisplayLoading";
+import { useToastContext } from "../../../Contexts/ToastLoading/ToastLoadingProvider";
+import { useAuth } from "../../../Contexts/Auth/AuthProvider";
 
 export default function Navbar() {
   const { isLoggedIn, role } = useSelector(selectAuth);
@@ -135,36 +135,27 @@ function AccountMenu({ anchorEl, menuId, setAnchorEl, role }) {
   const router = useRouter();
   const handleMenuClose = () => {
     if (role) {
-      if (role === "TEACHER") {
-        router.push(`/instructor`);
-      } else {
-        router.push(`/${role.toLowerCase()}`);
-      }
+      router.push(`/${role.toLowerCase()}`);
     }
     setAnchorEl(null);
   };
-  const [loading, setLoading] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState("");
+  const { setLoading } = useToastContext();
+  const { setRedirect } = useAuth();
 
   async function handleLogOut() {
     await handleRequestSubmit(
       {},
       setLoading,
-      setSubmitMessage,
       `auth/signout`,
       false,
-      null
+      "Logging out...",
+      setRedirect,
     );
     setAnchorEl(null);
   }
 
   return (
     <>
-      <DisplayLoadingAndErrors
-        loading={loading}
-        setSubmitMessage={setSubmitMessage}
-        submitMessage={submitMessage}
-      />
       <Menu
         anchorEl={anchorEl}
         anchorOrigin={{

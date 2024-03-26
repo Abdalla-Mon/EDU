@@ -1,9 +1,9 @@
 import crypto from "crypto";
 import prisma from "../../../../lib/pirsma/prisma"; // adjust the path according to your project structure
-import { sendEmail } from "../../../../app/api/utlis/sendMail";
+import { sendEmail } from "../../utlis/sendMail";
 import { pageUrl } from "../../../../Urls/urls"; // adjust the path according to your project structure
 
-export async function POST(request, { params }) {
+export async function POST(request) {
   let body = await request.json();
 
   try {
@@ -14,6 +14,7 @@ export async function POST(request, { params }) {
     });
     if (!user) {
       return Response.json({
+        status: 500,
         message: "No user found with this email",
       });
     }
@@ -25,7 +26,7 @@ export async function POST(request, { params }) {
       },
       data: {
         resetPasswordToken: token,
-        resetPasswordExpires: Date.now() + 3600000, // 1 hour
+        resetPasswordExpires: new Date(Date.now() + 3600000), // 1 hour
       },
     });
 
@@ -36,12 +37,14 @@ export async function POST(request, { params }) {
     await sendEmail(body.email, emailSubject, emailText);
 
     return Response.json({
+      status: 200,
       message: "Password reset link sent to " + body.email,
     });
   } catch (error) {
     console.log(error);
     return Response.json({
-      message: "Error sending password reset link " + error.message,
+      status: 500,
+      message: "Error sending password reset link ",
     });
   }
 }

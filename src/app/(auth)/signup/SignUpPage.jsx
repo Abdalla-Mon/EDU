@@ -1,37 +1,32 @@
 "use client";
 import MainForm from "../../components/FormComponents/Forms/MainForm/MainForm";
 import { signupInputs } from "./data";
-import { DisplayLoadingAndErrors } from "../../../helpers/components/DisplayLoading";
-import { useState } from "react";
 import { handleRequestSubmit } from "../../../helpers/functions/handleSubmit";
 import { pageUrl } from "../../../Urls/urls";
 import Link from "next/link";
+import { useToastContext } from "../../../Contexts/ToastLoading/ToastLoadingProvider";
+import { useAuth } from "../../../Contexts/Auth/AuthProvider";
 
 export default function SignUpPage() {
-  const [loading, setLoading] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState("");
+  const { setLoading } = useToastContext();
+  const { setRedirect } = useAuth();
 
   async function handleSignUp(data) {
     await handleRequestSubmit(
       data,
       setLoading,
-      setSubmitMessage,
       "auth/signup",
-      false
-      // () => handleAuthState(dispatch, true, data.role)
+      false,
+      "Signing up...",
+      setRedirect,
     );
   }
 
   const subTitle = (
-    <Link href={pageUrl + "/login"}>Aleady have an account?</Link>
+    <Link href={pageUrl + "/login"}>Already have an account?</Link>
   );
   return (
-    <>
-      <DisplayLoadingAndErrors
-        loading={loading}
-        setSubmitMessage={setSubmitMessage}
-        submitMessage={submitMessage}
-      />
+    <div>
       <MainForm
         btnText={"Sign up "}
         inputs={signupInputs}
@@ -39,6 +34,6 @@ export default function SignUpPage() {
         onSubmit={handleSignUp}
         subTitle={subTitle}
       />
-    </>
+    </div>
   );
 }

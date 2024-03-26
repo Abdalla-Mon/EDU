@@ -1,15 +1,11 @@
 import bcrypt from "bcrypt";
 import prisma from "../../../../lib/pirsma/prisma";
-import { cookies } from "next/headers";
 import { pageUrl } from "../../../../Urls/urls";
 import { sendEmail } from "../../utlis/sendMail";
 import crypto from "crypto";
 
-const SECRET_KEY = process.env.SECRET_KEY;
-
-export async function POST(request, { params }) {
+export async function POST(request) {
   let body = await request.json();
-  const cookieStore = cookies();
   if (body.password !== body.confirmPassword) {
     return Response.json({ message: "Passwords do not match" });
   }
@@ -17,7 +13,7 @@ export async function POST(request, { params }) {
     const hashedPassword = await bcrypt.hash(body.password, 10);
     body.password = hashedPassword;
     delete body.confirmPassword;
-    const user = await prisma.user.create({
+    await prisma.user.create({
       data: {
         ...body,
       },
@@ -40,12 +36,20 @@ export async function POST(request, { params }) {
     await sendEmail(body.email, emailSubject, emailText);
 
     return Response.json({
+      status: 200,
       message: "Confirmation link sent to " + body.email,
     });
   } catch (error) {
-    console.log(error);
-    return Response.json({
-      message: "Error creating user " + error.message,
-    });
+    if (error.code === "P2002") {
+      return Response.json({
+        status: 500,
+        message: "Email is already in use",
+      });
+    } else {
+      return Response.json({
+        status: 500,
+        message: "Error creating user",
+      });
+    }
   }
 }

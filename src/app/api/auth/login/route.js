@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
-export async function POST(request, { params }) {
+export async function POST(request) {
   let body = await request.json();
   const cookieStore = cookies();
 
@@ -17,6 +17,7 @@ export async function POST(request, { params }) {
 
     if (!user) {
       return Response.json({
+        status: 500,
         message: "No user found with this email",
       });
     }
@@ -25,6 +26,7 @@ export async function POST(request, { params }) {
 
     if (!validPassword) {
       return Response.json({
+        status: 500,
         message: "Incorrect password",
       });
     }
@@ -39,9 +41,14 @@ export async function POST(request, { params }) {
       path: "/",
     });
 
-    return Response.json({ message: "User signed in successfully", user });
+    return Response.json({
+      status: 200,
+      message: "User signed in successfully",
+      user,
+    });
   } catch (error) {
     return Response.json({
+      status: 500,
       message: "Error signing in user " + error.message,
     });
   }

@@ -70,7 +70,7 @@ export const signupInputs = [
       name: "role",
       options: [
         { value: "STUDENT", label: "Student" },
-        { value: "TEACHER", label: "Instructor" },
+        { value: "INSTRUCTOR", label: "Instructor" },
       ],
     },
     sx: {

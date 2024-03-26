@@ -1,59 +1,23 @@
-import { IoCloseCircleOutline } from "react-icons/io5";
+import ToastContainerLocal from "@/UiComponents/ToastContainerLocal/ToastContainerLocal";
+import "react-toastify/dist/ReactToastify.css";
 
-export function DisplayLoadingAndErrors({
-  loading,
-  submitMessage,
-  setSubmitMessage,
-  text = "Loading...",
-}) {
+export function DisplayLoadingAndErrors({ loading }) {
   return (
     <>
       {loading && (
         <div
-          className={
-            "fixed flex justify-center items-center font-bold right-0 top-0 z-[50000] w-full h-full"
-          }
           style={{
-            backdropFilter: "blur(5px)",
-            backgroundColor: "#ffffff57",
-            fontSize: "3rem",
+            position: "fixed",
+            top: 0,
+            right: 0,
+            zIndex: 50,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
           }}
-        >
-          {text}
-        </div>
+        ></div>
       )}
-      {submitMessage && (
-        <div
-          className=" flex justify-center items-center   z-[50000]  fixed  "
-          style={{
-            backdropFilter: "blur(5px)",
-            backgroundColor: "#ffffff",
-            top: "20px",
-            left: "20px",
-            fontSize: "1.5rem",
-            minWidth: "200px",
-            borderRadius: "10px",
-            border: "2px solid var(--color_primary)",
-            padding: "10px",
-          }}
-        >
-          {submitMessage}
-          <button
-            className={" absolute rounded-[50%]"}
-            style={{
-              top: "-10px",
-              right: "-10px",
-              backgroundColor: "var(--color_primary)",
-              textColor: "white",
-            }}
-            onClick={() => {
-              setSubmitMessage("");
-            }}
-          >
-            <IoCloseCircleOutline className={"text-white"} />
-          </button>
-        </div>
-      )}
+      <ToastContainerLocal />
     </>
   );
 }

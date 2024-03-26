@@ -13,6 +13,7 @@ export async function POST(request, { params }) {
     });
     if (!user || Date.now() > user.resetPasswordExpires) {
       return Response.json({
+        status: 500,
         message: "Invalid or expired reset token",
       });
     }
@@ -31,11 +32,13 @@ export async function POST(request, { params }) {
     });
 
     return Response.json({
+      status: 200,
       message: "Password has been successfully reset",
     });
   } catch (error) {
     console.log(error);
     return Response.json({
+      status: 500,
       message: "Error resetting password " + error.message,
     });
   }
