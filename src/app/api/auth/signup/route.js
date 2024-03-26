@@ -7,7 +7,7 @@ import crypto from "crypto";
 export async function POST(request) {
   let body = await request.json();
   if (body.password !== body.confirmPassword) {
-    return Response.json({ message: "Passwords do not match" });
+    return Response.json({ message: "Passwords do not match", status: 500 });
   }
   try {
     const hashedPassword = await bcrypt.hash(body.password, 10);

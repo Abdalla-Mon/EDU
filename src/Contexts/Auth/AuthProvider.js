@@ -8,7 +8,6 @@ export const AuthContext = createContext(null);
 export default function AuthProvider({ children }) {
   const dispatch = useDispatch();
   const [redirect, setRedirect] = useState(false);
-  console.log("redirect", redirect);
   useEffect(() => {
     async function fetchData() {
       const response = await fetch(`${apiUrl}auth/state`);
