@@ -15,7 +15,7 @@ export default function MainForm({
   variant,
   children,
 }) {
-  const { formState, register, handleSubmit } = useForm();
+  const { formState, register, handleSubmit, watch, trigger } = useForm();
   const { errors } = formState;
   return (
     <form
@@ -57,6 +57,8 @@ export default function MainForm({
                   register={register}
                   errors={errors}
                   variant={variant}
+                  watch={watch}
+                  trigger={trigger}
                 />
               )}
             </>
