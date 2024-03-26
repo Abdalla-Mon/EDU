@@ -9,7 +9,7 @@ export default function HandleAuth({ children }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (isLoggedIn) router.push("/" + role.toLowerCase());
+    if (isLoggedIn) router.push("/dashboard/" + role.toLowerCase());
   }, [isLoggedIn]);
   return (
     <>

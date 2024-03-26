@@ -135,7 +135,7 @@ function AccountMenu({ anchorEl, menuId, setAnchorEl, role }) {
   const router = useRouter();
   const handleMenuClose = () => {
     if (role) {
-      router.push(`/${role.toLowerCase()}`);
+      router.push(`/dashboard/${role.toLowerCase()}`);
     }
     setAnchorEl(null);
   };
