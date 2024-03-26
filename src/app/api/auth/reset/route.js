@@ -1,7 +1,7 @@
 import crypto from "crypto";
-import prisma from "../../../../lib/pirsma/prisma"; // adjust the path according to your project structure
+import prisma from "../../../../lib/pirsma/prisma";
 import { sendEmail } from "../../utlis/sendMail";
-import { pageUrl } from "../../../../Urls/urls"; // adjust the path according to your project structure
+import { pageUrl } from "../../../../Urls/urls";
 
 export async function POST(request) {
   let body = await request.json();

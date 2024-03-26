@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import bcrypt from "bcrypt";
+import prisma from "../../../../lib/pirsma/prisma";
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
