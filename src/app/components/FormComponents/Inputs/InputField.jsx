@@ -54,7 +54,7 @@ export default function InputField({
               aria-label="toggle password visibility"
               onClick={handleClickShowPassword}
             >
-              {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+              {!showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
             </IconButton>
           </InputAdornment>
         ),

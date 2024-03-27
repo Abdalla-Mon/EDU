@@ -33,7 +33,7 @@ export async function POST(request, { params }) {
 
     return Response.json({
       status: 200,
-      message: "Password has been successfully reset",
+      message: "Password has been reset please login",
     });
   } catch (error) {
     console.log(error);
