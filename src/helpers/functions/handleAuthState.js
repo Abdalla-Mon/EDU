@@ -7,5 +7,5 @@ export default async function handleAuthState(
   data,
   emailConfirmed,
 ) {
-  dispatch(setAuthState({ isLoggedIn, role, data, emailConfirmed }));
+  await dispatch(setAuthState({ isLoggedIn, role, data, emailConfirmed }));
 }
