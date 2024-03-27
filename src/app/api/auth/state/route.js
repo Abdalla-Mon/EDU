@@ -1,9 +1,8 @@
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 
-const SECRET_KEY = process.env.SECRET_KEY;
-
 export async function GET() {
+  const SECRET_KEY = process.env.SECRET_KEY;
   const cookieStore = cookies();
   const token = cookieStore.get("token")?.value;
 
@@ -43,6 +42,9 @@ export async function GET() {
     }
   } catch (error) {
     console.log(error);
-    return Response.json({ message: "Error authenticating user", error });
+    return Response.json({
+      message: "Error authenticating user",
+      error: error.message,
+    });
   }
 }
