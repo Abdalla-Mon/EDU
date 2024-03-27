@@ -7,7 +7,8 @@ import { useRouter } from "next/navigation";
 export default function HandleAuth({ children }) {
   const { isLoggedIn, role } = useSelector((state) => state.auth);
   const router = useRouter();
-
+  const auth = useSelector((state) => state.auth);
+  console.log(auth, "auth");
   console.log(isLoggedIn, "login page");
   useEffect(() => {
     if (isLoggedIn) router.push("/dashboard/" + role.toLowerCase());

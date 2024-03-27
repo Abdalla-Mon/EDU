@@ -47,14 +47,12 @@ export default function InputField({
       helperText={errors[inputData.id]?.message}
       {...inputData}
       {...register(inputData.id, input.pattern)}
-      onBlur={() => hidePasswrod}
       InputProps={{
         endAdornment: input.data.type === "password" && (
           <InputAdornment position="end">
             <IconButton
               aria-label="toggle password visibility"
               onClick={handleClickShowPassword}
-              onMouseDown={hidePasswrod}
             >
               {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
             </IconButton>
