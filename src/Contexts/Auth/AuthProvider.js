@@ -1,12 +1,13 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import { apiUrl } from "../../Urls/urls";
-import { useDispatch } from "react-redux";
-import handleAuthState from "@/helpers/functions/handleAuthState";
+import { useDispatch, useSelector } from "react-redux";
+import handleAuthState from "../../helpers/functions/handleAuthState";
 
 export const AuthContext = createContext(null);
 export default function AuthProvider({ children }) {
   const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const [redirect, setRedirect] = useState(false);
   useEffect(() => {
     async function fetchData() {
@@ -23,7 +24,6 @@ export default function AuthProvider({ children }) {
 
     fetchData();
   }, [redirect]);
-
   return (
     <AuthContext.Provider value={{ setRedirect, redirect }}>
       {children}

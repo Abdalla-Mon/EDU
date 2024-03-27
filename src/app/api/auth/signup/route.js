@@ -13,22 +13,24 @@ export async function POST(request) {
     const hashedPassword = await bcrypt.hash(body.password, 10);
     body.password = hashedPassword;
     delete body.confirmPassword;
+    const token = crypto.randomBytes(20).toString("hex");
     await prisma.user.create({
       data: {
         ...body,
+        confirmationToken: token,
+        confirmationExpires: new Date(Date.now() + 3600000),
       },
     });
 
-    const token = crypto.randomBytes(20).toString("hex");
-    await prisma.user.update({
-      where: {
-        email: body.email,
-      },
-      data: {
-        confirmationToken: token,
-        confirmationExpires: new Date(Date.now() + 3600000), // 1 hour
-      },
-    });
+    // await prisma.user.update({
+    //   where: {
+    //     email: body.email,
+    //   },
+    //   data: {
+    //     confirmationToken: token,
+    //     confirmationExpires: new Date(Date.now() + 3600000), // 1 hour
+    //   },
+    // });
     const confirmLink = `${pageUrl}/confirm?token=${token}`;
     const emailSubject = "Email Confirmation Request";
     const emailText = `You are receiving this because you (or someone else) have requested the confirmation of the email for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n${confirmLink}\n\nIf you did not request this, please ignore this email and your email will remain unconfirmed.\n`;

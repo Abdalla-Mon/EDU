@@ -1,2 +1,2 @@
-export const pageUrl = "https://edu-three-zeta.vercel.app";
+export const pageUrl = "http://localhost:3000";
 export const apiUrl = pageUrl + "/api/";

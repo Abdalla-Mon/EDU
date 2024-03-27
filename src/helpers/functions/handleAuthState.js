@@ -1,11 +1,11 @@
 import { setAuthState } from "../../lib/redux/slices/authSlice";
 
-export default function handleAuthState(
+export default async function handleAuthState(
   dispatch,
   isLoggedIn,
   role,
   data,
-  emailConfirmed
+  emailConfirmed,
 ) {
   dispatch(setAuthState({ isLoggedIn, role, data, emailConfirmed }));
 }

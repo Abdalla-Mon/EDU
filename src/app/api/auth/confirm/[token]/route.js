@@ -37,7 +37,7 @@ export async function POST(request, { params }) {
       },
     });
     const jwtToken = jwt.sign({ userId: user.id }, SECRET_KEY);
-    cookieStore.set({
+    await cookieStore.set({
       name: "token",
       value: jwtToken,
       httpOnly: true,
@@ -46,12 +46,13 @@ export async function POST(request, { params }) {
     });
 
     return Response.json({
-      message: "Email confirmed",
+      message: "Email confirmed redirecting...",
       user,
       redirect: true,
       status: 200,
     });
   } catch (error) {
+    console.error(error);
     return Response.json({ message: "An error occurred" });
   }
 }

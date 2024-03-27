@@ -8,7 +8,6 @@ export async function GET() {
   const token = cookieStore.get("token")?.value;
 
   if (!token) {
-    console.log(token, "token");
     return Response.json({ auth: false, message: "No token provided" });
   }
   try {

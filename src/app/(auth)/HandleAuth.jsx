@@ -8,6 +8,7 @@ export default function HandleAuth({ children }) {
   const { isLoggedIn, role } = useSelector((state) => state.auth);
   const router = useRouter();
 
+  console.log(isLoggedIn, "login page");
   useEffect(() => {
     if (isLoggedIn) router.push("/dashboard/" + role.toLowerCase());
   }, [isLoggedIn]);

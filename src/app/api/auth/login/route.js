@@ -44,7 +44,7 @@ export async function POST(request) {
 
     return Response.json({
       status: 200,
-      message: "User signed in successfully",
+      message: "User signed in successfully redirecting...",
       user,
     });
   } catch (error) {

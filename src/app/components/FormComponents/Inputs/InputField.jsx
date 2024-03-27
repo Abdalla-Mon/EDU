@@ -20,8 +20,7 @@ export default function InputField({
       type: inputData.type === "password" ? "text" : "password",
     });
   };
-  const handleMouseDownPassword = () => {
-    console.log("handleMouseDownPassword");
+  const hidePasswrod = () => {
     setInputData({
       ...inputData,
       type: "password",
@@ -48,13 +47,14 @@ export default function InputField({
       helperText={errors[inputData.id]?.message}
       {...inputData}
       {...register(inputData.id, input.pattern)}
+      onBlur={() => hidePasswrod}
       InputProps={{
         endAdornment: input.data.type === "password" && (
           <InputAdornment position="end">
             <IconButton
               aria-label="toggle password visibility"
               onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
+              onMouseDown={hidePasswrod}
             >
               {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
             </IconButton>
