@@ -13,13 +13,14 @@ export default function AuthProvider({ children }) {
     async function fetchData() {
       const response = await fetch(`${apiUrl}auth/state`);
       const data = await response.json();
-      handleAuthState(
+      await handleAuthState(
         dispatch,
         data.auth,
         data.role,
         data.user,
         data.emailConfirmed,
       );
+      console.log(response, "auth res");
     }
 
     fetchData();
