@@ -43,6 +43,6 @@ export async function GET() {
     }
   } catch (error) {
     console.log(error);
-    return Response.json({ message: "Error authenticating user" });
+    return Response.json({ message: "Error authenticating user", error });
   }
 }
