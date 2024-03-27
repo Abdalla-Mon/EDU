@@ -14,7 +14,6 @@ export default function AuthProvider({ children }) {
       const response = await fetch(`${apiUrl}auth/state`);
       const data = await response.json();
 
-      console.log(data, "response");
       await handleAuthState(
         dispatch,
         data.auth,
