@@ -20,7 +20,7 @@ export default function AuthProvider({ children }) {
         data.user,
         data.emailConfirmed,
       );
-      console.log(response, "auth res");
+      console.log(await response, "auth res");
     }
 
     fetchData();
