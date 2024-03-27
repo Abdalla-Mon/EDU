@@ -11,7 +11,10 @@ export default function AuthProvider({ children }) {
   const [redirect, setRedirect] = useState(false);
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`${apiUrl}auth/state`);
+      const response = await fetch(`${apiUrl}auth/state`).then((res) =>
+        res.json(),
+      );
+      console.log(response, "response");
       const data = await response.json();
       await handleAuthState(
         dispatch,
@@ -20,7 +23,6 @@ export default function AuthProvider({ children }) {
         data.user,
         data.emailConfirmed,
       );
-      console.log(await response, "auth res");
     }
 
     fetchData();
