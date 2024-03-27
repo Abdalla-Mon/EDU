@@ -23,7 +23,7 @@ export default function AuthProvider({ children }) {
     }
 
     fetchData();
-  }, [redirect]);
+  }, [redirect, isLoggedIn]);
   return (
     <AuthContext.Provider value={{ setRedirect, redirect }}>
       {children}
